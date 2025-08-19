@@ -3,7 +3,8 @@ import { redirect } from '@sveltejs/kit';
 import { EDGE_CONFIG } from '$env/static/private';
 
 export async function load(event) {
-	// Option B: duplicate the logic from middleware in the root layout server load function
+	// Option B: redirect in the root layout server load function
+	//           (you may want/need to duplicate the logic from in middleware.ts in case you have prerendered pages)
 	const url = new URL(event.url);
 	const store = createClient(EDGE_CONFIG);
 	const redirects = (await store.get<Record<string, string>>('redirects')) || {};
